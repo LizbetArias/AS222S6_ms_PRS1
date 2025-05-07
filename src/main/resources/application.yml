@@ -1,0 +1,54 @@
+server:
+  port: ${PORT:8086}
+
+spring:
+  application:
+    name: report-service
+
+  r2dbc:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    pool:
+      enabled: true
+      max-size: 10
+      initial-size: 2
+      max-idle-time: 30s
+
+  kafka:
+    bootstrap-servers: ${BOOTSTRAP_SERVER}
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${KAFKA_USERNAME}" password="${KAFKA_PASSWORD}";
+    consumer:
+      group-id: report-service
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      enable-auto-commit: false
+      auto-offset-reset: earliest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://securetoken.google.com/security-prs1
+
+
+  codec:
+    max-in-memory-size: 50MB
+
+supabase:
+  project-url: ${SUPABASE_PROJECT_URL}
+  api-key: ${SUPABASE_API_KEY}
+  bucket: ${SUPABASE_BUCKET}
+  folder: ${SUPABASE_FOLDER}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.kafka: DEBUG
+    pe.edu.vallegrande.report_service: DEBUG
