@@ -19,8 +19,10 @@
 	<description>Microservicio Report</description>
 
 	<properties>
-	  <sonar.organization>lizbetarias</sonar.organization>
-	  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<java.version>17</java.version>
+		<sonar.organization>lizbetarias</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 
 	<dependencies>
