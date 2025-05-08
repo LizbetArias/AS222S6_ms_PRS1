@@ -55,5 +55,5 @@ jobs:
       - name: 📊 Análisis SonarCloud
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn sonar:sonar -Dsonar.projectKey=AngelCastillaSandoval_AS222S6_ms_report -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        run: mvn sonar:sonar -Dsonar.projectKey=LizbetArias_AS222S6_ms_PRS1 -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
      
