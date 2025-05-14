@@ -49,8 +49,8 @@ pipeline {
             steps {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
                     script {
-                        // Verificar el SONAR_TOKEN (enmascarado para logs)
-                        sh 'echo "Using SONAR_TOKEN (masked): ${SONAR_TOKEN:0:5}..."'
+                        // Verificar que el SONAR_TOKEN existe (sin mostrar el valor)
+                        sh 'echo "SONAR_TOKEN variable is set"'
                         
                         // Ejecutar análisis con parámetros seguros
                         sh '''
