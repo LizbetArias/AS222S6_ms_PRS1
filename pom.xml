@@ -22,6 +22,7 @@
 		<java.version>17</java.version>
 		<sonar.organization>LizbetArias</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>LizbetArias_AS222S6_ms_PRS1</sonar.projectKey>
 	</properties>
 
 	<dependencies>
