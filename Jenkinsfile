@@ -48,13 +48,19 @@ pipeline {
         stage('Análisis SonarCloud') {
             steps {
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-                    sh """
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=LizbetArias_AS222S6_ms_PRS1 \
-                        -Dsonar.organization=LizbetArias \
-                        -Dsonar.host.url=https://sonarcloud.io \
-                        -Dsonar.login=${SONAR_TOKEN}
-                    """
+                    script {
+                        // Verificar el SONAR_TOKEN (enmascarado para logs)
+                        sh 'echo "Using SONAR_TOKEN (masked): ${SONAR_TOKEN:0:5}..."'
+                        
+                        // Ejecutar análisis con parámetros seguros
+                        sh '''
+                            mvn sonar:sonar \
+                            -Dsonar.projectKey=LizbetArias_AS222S6_ms_PRS1 \
+                            -Dsonar.organization=lizbetarias \
+                            -Dsonar.host.url=https://sonarcloud.io \
+                            -Dsonar.token=${SONAR_TOKEN}
+                        '''
+                    }
                 }
             }
         }
@@ -64,6 +70,19 @@ pipeline {
                     waitForQualityGate abortPipeline: true
                 }
             }
+        }
+    }
+    post {
+        always {
+            echo 'Pipeline ejecutado - revisando resultados'
+            // Limpiar workspace si es necesario
+            // cleanWs()
+        }
+        success {
+            echo 'Pipeline exitoso'
+        }
+        failure {
+            echo 'Pipeline falló - revisar logs de error'
         }
     }
 }
